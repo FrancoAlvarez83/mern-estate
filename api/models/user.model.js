@@ -14,7 +14,11 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
+    },
+    avatar: {
+        type: String,
+        default: "https://www.nicepng.com/png/detail/933-9332131_profile-picture-default-png.png"
+    },
 }, {timestamps: true});
 
 const User = mongoose.model('User', userSchema);
