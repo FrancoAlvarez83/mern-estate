@@ -2,8 +2,12 @@ import {useSelector} from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase.js';
-import { updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice.js';
+import { deleteUserFailure, deleteUserStart, deleteUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice.js';
 import { useDispatch } from 'react-redux';
+// ES6 Modules or TypeScript
+import Swal from 'sweetalert2'
+
+
 
 
 
@@ -77,6 +81,46 @@ export default function Profile() {
     }
   };
 
+  const handleDeleteUser = async () => {
+    try {
+      const result = await Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'error',
+        showCancelButton: true,
+        confirmButtonColor: '#dc3545',
+        cancelButtonColor: '#334155',
+        confirmButtonText: 'Yes, delete it!',
+      });
+  
+      if (!result.isConfirmed) {
+        return; // User canceled the action
+      }
+  
+      dispatch(deleteUserStart());
+  
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+  
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+  
+      const data = await res.json();
+  
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+      } else {
+        dispatch(deleteUserSuccess(data));
+        Swal.fire('Deleted!', 'Your account has been deleted.', 'success');
+      }
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  };
+  
+
   return (
     <div className='p-3 max-w-lg mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>Profile</h1>
@@ -102,7 +146,7 @@ export default function Profile() {
          <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 hover:opacity-80 disabled:opacity-60'>{loading ? 'Loading' : 'Update'}</button>
       </form>
       <div className='flex justify-between mt-5'>
-        <span className='bg-red-500 text-white cursor-pointer rounded-lg p-3 hover:opacity-90'>Delete Account</span>
+        <span onClick={handleDeleteUser} className='bg-red-500 text-white cursor-pointer rounded-lg p-3 hover:opacity-90'>Delete Account</span>
         <span className='bg-slate-900 text-white cursor-pointer rounded-lg p-3 hover:opacity-90'>Sign Out</span>
       </div>
 
