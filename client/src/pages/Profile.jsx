@@ -120,6 +120,7 @@ export default function Profile() {
     }
   };
 
+  //! revisar si se usa singOutFailure y succes. en el tutorial usa deleteAccountFailure y success
   const handleSignOut = async () => {
     try {
       dispatch(signOutUserStart())
