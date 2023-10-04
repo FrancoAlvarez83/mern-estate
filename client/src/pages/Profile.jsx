@@ -2,7 +2,7 @@ import {useSelector} from 'react-redux';
 import { useRef, useState, useEffect } from 'react';
 import { getDownloadURL, getStorage, ref, uploadBytesResumable } from 'firebase/storage';
 import { app } from '../firebase.js';
-import { deleteUserFailure, deleteUserStart, deleteUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice.js';
+import { deleteUserFailure, deleteUserStart, deleteUserSuccess, signOutUserFailure, signOutUserStart, signOutUserSuccess, updateUserFailure, updateUserStart, updateUserSuccess } from '../redux/user/userSlice.js';
 import { useDispatch } from 'react-redux';
 // ES6 Modules or TypeScript
 import Swal from 'sweetalert2'
@@ -119,6 +119,21 @@ export default function Profile() {
       dispatch(deleteUserFailure(error.message));
     }
   };
+
+  const handleSignOut = async () => {
+    try {
+      dispatch(signOutUserStart())
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+      if(data.success === false) {
+        dispatch(signOutUserFailure(data.message))
+        return;
+      }
+      dispatch(signOutUserSuccess(data));
+    } catch (error) {
+      dispatch(signOutUserFailure(data.message));
+    }
+  }
   
 
   return (
@@ -147,7 +162,7 @@ export default function Profile() {
       </form>
       <div className='flex justify-between mt-5'>
         <span onClick={handleDeleteUser} className='bg-red-500 text-white cursor-pointer rounded-lg p-3 hover:opacity-90'>Delete Account</span>
-        <span className='bg-slate-900 text-white cursor-pointer rounded-lg p-3 hover:opacity-90'>Sign Out</span>
+        <span onClick={handleSignOut} className='bg-slate-900 text-white cursor-pointer rounded-lg p-3 hover:opacity-90'>Sign Out</span>
       </div>
 
       <p className='text-red-700 mt-5'>{error ? error : ''}</p>
