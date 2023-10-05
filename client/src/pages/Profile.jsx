@@ -153,6 +153,23 @@ export default function Profile() {
         setShowListingErrors(true);
     }
   }
+
+  const handleListingDelete = async (listingId) => {
+    try {
+      const res = await fetch(`api/listing/delete/${listingId}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+
+      setUserListings((prev) => prev.filter((listing) => listing._id !== listingId));
+    } catch (error) {
+        console.log(error.message)
+    }
+  }
   
 
   return (
