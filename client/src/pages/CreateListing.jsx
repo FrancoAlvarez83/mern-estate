@@ -8,10 +8,10 @@ import {
 import { app } from '../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 export default function CreateListing() {
   const { currentUser } = useSelector((state) => state.user);
-  console.log(currentUser)
   const navigate = useNavigate();
   const [files, setFiles] = useState([]);
   const [formData, setFormData] = useState({
@@ -133,7 +133,6 @@ export default function CreateListing() {
         return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
-      console.log('estoy adentro del submit')
       const res = await fetch('/api/listing/create', {
         method: 'POST',
         headers: {
@@ -141,11 +140,9 @@ export default function CreateListing() {
         },
         body: JSON.stringify({
           ...formData,
-          userRef: currentUser._id,          
+          userRef: currentUser._id,
         }),
       });
-      console.log(formData.userRef)
-      console.log(currentUser._id)
       const data = await res.json();
       setLoading(false);
       if (data.success === false) {
@@ -157,7 +154,8 @@ export default function CreateListing() {
       setLoading(false);
     }
   };
-  
+
+
   return (
     <main className='p-3 max-w-7xl mx-auto'>
       <h1 className='text-3xl font-semibold text-center my-7'>
@@ -337,7 +335,7 @@ export default function CreateListing() {
               onClick={handleImageSubmit}
               className='p-3 bg-green-700 text-white border rounded-lg hover:opacity-90 disabled:opacity-80'
             >
-              {uploading ? 'Uploading...' : 'Upload'}
+              {uploading ? <Loader /> : 'Upload'}
             </button>
           </div>
           <p className='text-red-700 text-sm'>

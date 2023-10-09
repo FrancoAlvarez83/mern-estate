@@ -8,6 +8,7 @@ import {
 import { app } from '../firebase';
 import { useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import Loader from '../components/Loader';
 
 
 export default function UpdateListing() {
@@ -354,7 +355,7 @@ export default function UpdateListing() {
               onClick={handleImageSubmit}
               className='p-3 bg-green-700 text-white border rounded-lg hover:opacity-90 disabled:opacity-80'
             >
-              {uploading ? 'Uploading...' : 'Upload'}
+              {uploading ? <Loader /> : 'Upload'}
             </button>
           </div>
           <p className='text-red-700 text-sm'>
@@ -384,7 +385,7 @@ export default function UpdateListing() {
             disabled={loading || uploading}
             className='p-3 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-80 mt-3'
           >
-            {loading ? 'Updating...' : 'Edit Listing'}
+            {loading ? <Loader /> : 'Update Listing'}
           </button>
           {error && <p className='text-red-700 text-sm'>{error}</p>}
         </div>
