@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ListingItem from '../components/ListingItem';
+import Loader from '../components/Loader';
 
 export default function Search() {
   const navigate = useNavigate();
@@ -239,7 +240,7 @@ export default function Search() {
           )}
           {loading && (
             <p className='text-xl text-slate-700 text-center w-full'>
-              Loading...
+              <Loader />
             </p>
           )}
 
