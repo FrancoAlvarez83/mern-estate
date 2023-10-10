@@ -197,8 +197,8 @@ export default function Profile() {
          <button disabled={loading} className='bg-slate-700 text-white rounded-lg p-3 hover:opacity-80 disabled:opacity-60'>{loading ? 'Loading' : 'Update Account'}</button>         
       </form>
       <div className='flex justify-between mt-5'>
-        <span onClick={handleDeleteUser} className='bg-red-500 text-white cursor-pointer rounded-lg p-3 hover:opacity-90'>Delete Account</span>
-        <span onClick={handleSignOut} className='bg-slate-900 text-white cursor-pointer rounded-lg p-3 hover:opacity-90'>Sign Out</span>
+        <span onClick={handleDeleteUser} className='bg-red-500 text-white cursor-pointer rounded-lg px-3 text-center inline-flex items-center hover:opacity-90'>Delete Account</span>
+        <span onClick={handleSignOut} className='bg-slate-900 text-white cursor-pointer rounded-lg p-3 hover:opacity-90'>Logout</span>
       </div>
       
 

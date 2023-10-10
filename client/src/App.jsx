@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Footer from './components/Footer'
 import Header from './components/Header'
 import PrivateRoute from './components/PrivateRoute'
 import About from './pages/About'
@@ -31,6 +32,7 @@ export default function App() {
       </Route>
 
     </Routes>
+  <Footer />
   </BrowserRouter>
   )
 }

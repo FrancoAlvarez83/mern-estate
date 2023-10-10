@@ -2,6 +2,7 @@ import { FaSearch } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
+import logo from '../assets/fae_estate.png';
 
 
 export default function Header() {
@@ -30,12 +31,13 @@ export default function Header() {
 
   return (
     <header className='bg-slate-200 shadow-md'>
-        <div className='flex justify-between items-center max-w-6xl mx-auto p-6'>
+        <div className='flex justify-between items-center max-w-6xl mx-auto p-2'>
             <Link to='/'>
-                <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
+                {/* <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
                     <span className='text-slate-500'>Franco</span>
                     <span className='text-slate-700'>Alvarez</span>
-                </h1>
+                </h1> */}
+                <img className='w-36' src={logo} />
             </Link>
             <form onSubmit={handleSubmit} className='bg-slate-100 p-3 rounded-lg flex items-center'>
                 <input type="text" placeholder='Search...' className='bg-transparent focus:outline-none w-24 sm:w-64' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
