@@ -2,7 +2,7 @@ import logo from '../assets/fae_estate.png';
 
 export default function About() {
   return (
-    <div className='py-20 px-4 max-w-6xl mx-auto'>
+    <div className='py-20 px-4 max-w-6xl mx-auto min-h-screen'>
       <div className='flex flex-wrap items-center justify-center gap-2'>
       <h1 className='text-3xl font-bold text-slate-800'>About</h1> <img className='w-36' src={logo} />
       </div>
